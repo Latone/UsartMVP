@@ -92,8 +92,8 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
             this.extra_inj_box = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.button2 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.revs_grid)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -833,6 +833,13 @@ namespace WindowsFormsApp1.Views
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
             // 
+            // trackBar1
+            // 
+            this.trackBar1.Location = new System.Drawing.Point(250, 3);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(195, 31);
+            this.trackBar1.TabIndex = 3;
+            // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -843,13 +850,6 @@ namespace WindowsFormsApp1.Views
             this.button2.TabIndex = 2;
             this.button2.Text = "-";
             this.button2.UseVisualStyleBackColor = true;
-            // 
-            // trackBar1
-            // 
-            this.trackBar1.Location = new System.Drawing.Point(250, 3);
-            this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(195, 31);
-            this.trackBar1.TabIndex = 3;
             // 
             // Configuration
             // 

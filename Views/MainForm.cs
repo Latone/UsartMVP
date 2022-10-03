@@ -78,5 +78,27 @@ namespace WindowsFormsApp1
         {
             Config_status.Text = config.toString();
         }
+
+
+        private void button_calibration_Click(object sender, EventArgs e)
+        {
+            if (Int32.Parse(config.REVS) > 6500)
+            {
+                DialogResult dialogResult = MessageBox.Show("REVS is out of bound (6500 max)", "Warning", MessageBoxButtons.OK);
+                if (dialogResult == DialogResult.OK)
+                {
+                    return;
+                }
+            }
+            using (AutoCalibration window = new AutoCalibration(this, config))
+            {
+                //this.Enabled = false;
+                //window.Show();
+
+                if (window.ShowDialog() == DialogResult.OK)
+                    this.config = window.config;
+
+            }
+        }
     }
 }
