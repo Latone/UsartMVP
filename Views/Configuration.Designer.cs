@@ -29,6 +29,7 @@ namespace WindowsFormsApp1.Views
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -74,16 +75,19 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
             this.label17 = new System.Windows.Forms.Label();
-            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.record_textBox = new System.Windows.Forms.TextBox();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
+            this.record_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
+            this.GAS_bar = new System.Windows.Forms.ProgressBar();
+            this.label20 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
             this.label15 = new System.Windows.Forms.Label();
@@ -94,6 +98,7 @@ namespace WindowsFormsApp1.Views
             this.button1 = new System.Windows.Forms.Button();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button2 = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.revs_grid)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -105,6 +110,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
             this.tableLayoutPanel10.SuspendLayout();
@@ -248,7 +254,7 @@ namespace WindowsFormsApp1.Views
             this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(127, 0);
+            this.label13.Location = new System.Drawing.Point(150, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(22, 33);
             this.label13.TabIndex = 12;
@@ -259,7 +265,7 @@ namespace WindowsFormsApp1.Views
             this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(127, 33);
+            this.label14.Location = new System.Drawing.Point(150, 33);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(22, 34);
             this.label14.TabIndex = 13;
@@ -316,6 +322,7 @@ namespace WindowsFormsApp1.Views
             this.revs_box.Name = "revs_box";
             this.revs_box.Size = new System.Drawing.Size(48, 20);
             this.revs_box.TabIndex = 17;
+            this.revs_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.revs_box_KeyPress);
             // 
             // t_gas_box
             // 
@@ -325,6 +332,7 @@ namespace WindowsFormsApp1.Views
             this.t_gas_box.Name = "t_gas_box";
             this.t_gas_box.Size = new System.Drawing.Size(48, 20);
             this.t_gas_box.TabIndex = 18;
+            this.t_gas_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.t_gas_box_KeyPress);
             // 
             // t_red_box
             // 
@@ -334,6 +342,7 @@ namespace WindowsFormsApp1.Views
             this.t_red_box.Name = "t_red_box";
             this.t_red_box.Size = new System.Drawing.Size(48, 20);
             this.t_red_box.TabIndex = 19;
+            this.t_red_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.t_red_box_KeyPress);
             // 
             // gas_time_box
             // 
@@ -343,6 +352,7 @@ namespace WindowsFormsApp1.Views
             this.gas_time_box.Name = "gas_time_box";
             this.gas_time_box.Size = new System.Drawing.Size(48, 20);
             this.gas_time_box.TabIndex = 20;
+            this.gas_time_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.gas_time_box_KeyPress);
             // 
             // petrol_time_box
             // 
@@ -352,24 +362,27 @@ namespace WindowsFormsApp1.Views
             this.petrol_time_box.Name = "petrol_time_box";
             this.petrol_time_box.Size = new System.Drawing.Size(48, 20);
             this.petrol_time_box.TabIndex = 21;
+            this.petrol_time_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.petrol_time_box_KeyPress);
             // 
             // g_press_box
             // 
             this.g_press_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.g_press_box.Location = new System.Drawing.Point(73, 3);
+            this.g_press_box.Location = new System.Drawing.Point(96, 3);
             this.g_press_box.Name = "g_press_box";
             this.g_press_box.Size = new System.Drawing.Size(48, 20);
             this.g_press_box.TabIndex = 22;
+            this.g_press_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.g_press_box_KeyPress);
             // 
             // map_box
             // 
             this.map_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.map_box.Location = new System.Drawing.Point(73, 36);
+            this.map_box.Location = new System.Drawing.Point(96, 36);
             this.map_box.Name = "map_box";
             this.map_box.Size = new System.Drawing.Size(48, 20);
             this.map_box.TabIndex = 23;
+            this.map_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.map_box_KeyPress);
             // 
             // revs_grid
             // 
@@ -533,7 +546,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel12.Controls.Add(this.tableLayoutPanel13, 0, 2);
             this.tableLayoutPanel12.Controls.Add(this.label18, 0, 0);
             this.tableLayoutPanel12.Controls.Add(this.label19, 0, 1);
-            this.tableLayoutPanel12.Controls.Add(this.button3, 0, 3);
+            this.tableLayoutPanel12.Controls.Add(this.record_button, 0, 3);
             this.tableLayoutPanel12.Location = new System.Drawing.Point(635, 3);
             this.tableLayoutPanel12.Name = "tableLayoutPanel12";
             this.tableLayoutPanel12.RowCount = 4;
@@ -550,7 +563,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.62585F));
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.37415F));
             this.tableLayoutPanel13.Controls.Add(this.label17, 1, 0);
-            this.tableLayoutPanel13.Controls.Add(this.textBox9, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.record_textBox, 0, 0);
             this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 44);
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
@@ -569,15 +582,16 @@ namespace WindowsFormsApp1.Views
             this.label17.TabIndex = 0;
             this.label17.Text = "ms";
             // 
-            // textBox9
+            // record_textBox
             // 
-            this.textBox9.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.textBox9.Location = new System.Drawing.Point(35, 8);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(56, 20);
-            this.textBox9.TabIndex = 1;
-            this.textBox9.Text = "0,0";
-            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.record_textBox.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.record_textBox.Location = new System.Drawing.Point(35, 8);
+            this.record_textBox.Name = "record_textBox";
+            this.record_textBox.ReadOnly = true;
+            this.record_textBox.Size = new System.Drawing.Size(56, 20);
+            this.record_textBox.TabIndex = 1;
+            this.record_textBox.Text = "0,0";
+            this.record_textBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label18
             // 
@@ -599,17 +613,18 @@ namespace WindowsFormsApp1.Views
             this.label19.TabIndex = 2;
             this.label19.Text = "1";
             // 
-            // button3
+            // record_button
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button3.Location = new System.Drawing.Point(34, 86);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(84, 66);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "REC";
-            this.button3.UseVisualStyleBackColor = true;
+            this.record_button.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.record_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.record_button.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.record_button.Location = new System.Drawing.Point(34, 86);
+            this.record_button.Name = "record_button";
+            this.record_button.Size = new System.Drawing.Size(84, 66);
+            this.record_button.TabIndex = 3;
+            this.record_button.Text = "REC";
+            this.record_button.UseVisualStyleBackColor = true;
+            this.record_button.Click += new System.EventHandler(this.record_Click);
             // 
             // tableLayoutPanel3
             // 
@@ -621,6 +636,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel6, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel14, 3, 0);
             this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 40);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
@@ -712,8 +728,8 @@ namespace WindowsFormsApp1.Views
             // 
             this.tableLayoutPanel8.ColumnCount = 3;
             this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.51685F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.14607F));
-            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.19101F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.85393F));
             this.tableLayoutPanel8.Controls.Add(this.label14, 2, 1);
             this.tableLayoutPanel8.Controls.Add(this.map_box, 1, 1);
             this.tableLayoutPanel8.Controls.Add(this.label11, 0, 0);
@@ -728,6 +744,44 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel8.Size = new System.Drawing.Size(178, 67);
             this.tableLayoutPanel8.TabIndex = 1;
+            // 
+            // tableLayoutPanel14
+            // 
+            this.tableLayoutPanel14.ColumnCount = 1;
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel14.Controls.Add(this.GAS_bar, 0, 1);
+            this.tableLayoutPanel14.Controls.Add(this.label20, 0, 0);
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(635, 3);
+            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
+            this.tableLayoutPanel14.RowCount = 2;
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.11111F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.88889F));
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(153, 108);
+            this.tableLayoutPanel14.TabIndex = 3;
+            // 
+            // GAS_bar
+            // 
+            this.GAS_bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GAS_bar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.GAS_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.GAS_bar.Location = new System.Drawing.Point(3, 74);
+            this.GAS_bar.Name = "GAS_bar";
+            this.GAS_bar.Size = new System.Drawing.Size(147, 24);
+            this.GAS_bar.TabIndex = 1;
+            this.GAS_bar.Value = 56;
+            // 
+            // label20
+            // 
+            this.label20.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label20.AutoSize = true;
+            this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label20.Location = new System.Drawing.Point(39, 34);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(74, 31);
+            this.label20.TabIndex = 0;
+            this.label20.Text = "GAS";
             // 
             // tableLayoutPanel1
             // 
@@ -779,6 +833,7 @@ namespace WindowsFormsApp1.Views
             this.l_on_m_box.Size = new System.Drawing.Size(87, 20);
             this.l_on_m_box.TabIndex = 2;
             this.l_on_m_box.Text = "0";
+            this.l_on_m_box.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.l_on_m_box_KeyPress);
             // 
             // label16
             // 
@@ -832,6 +887,7 @@ namespace WindowsFormsApp1.Views
             this.button1.TabIndex = 1;
             this.button1.Text = "+";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.increase_Click);
             // 
             // trackBar1
             // 
@@ -839,6 +895,7 @@ namespace WindowsFormsApp1.Views
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Size = new System.Drawing.Size(195, 31);
             this.trackBar1.TabIndex = 3;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // button2
             // 
@@ -850,6 +907,11 @@ namespace WindowsFormsApp1.Views
             this.button2.TabIndex = 2;
             this.button2.Text = "-";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.decrease_Click);
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Configuration
             // 
@@ -879,6 +941,8 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel7.PerformLayout();
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel8.PerformLayout();
+            this.tableLayoutPanel14.ResumeLayout(false);
+            this.tableLayoutPanel14.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
@@ -927,10 +991,10 @@ namespace WindowsFormsApp1.Views
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.TextBox record_textBox;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button record_button;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
         private System.Windows.Forms.Label label15;
@@ -953,5 +1017,9 @@ namespace WindowsFormsApp1.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.ProgressBar GAS_bar;
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Model\IManageConfigForm.cs" />
     <Compile Include="Services\IDataStore.cs" />
     <Compile Include="Services\MockDataStore.cs" />
+    <Compile Include="COM\Retry.cs" />
     <Compile Include="Views\AutoCalibration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -132,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\View.resx">
+      <DependentUpon>View.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

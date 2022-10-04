@@ -33,8 +33,10 @@ namespace WindowsFormsApp1.Views
                 _config.TABLE_REVS_Column = revs_grid.CurrentCell.ColumnIndex.ToString();
                 _config.TABLE_REVS_Row = revs_grid.CurrentCell.RowIndex.ToString();
 
+
                 var checkedRadioButton = rb_container.OfType<RadioButton>()
                                           .FirstOrDefault(r => r.Checked);
+
                 int h = checkedRadioButton.Name[checkedRadioButton.Name.Length - 1] - '0';
                 _config.rb = (radio_button)h;
                 _config.l_on_mazda = l_on_m_box.Text;
@@ -52,6 +54,7 @@ namespace WindowsFormsApp1.Views
                 petrol_time_box.Text = _config.PETROL_TIME;
                 g_press_box.Text = _config.G_PRES;
                 map_box.Text = _config.MAP;
+                
 
                 string rbName = "";
 
@@ -72,15 +75,15 @@ namespace WindowsFormsApp1.Views
         {
             InitializeComponent();
 
-            _form = form;
-            config = mainConfig;
-
             rb_container = new List<RadioButton>();
             rb_container.AddRange(new List<RadioButton>{
                 radioButton1,
                 radioButton2,
                 radioButton3 }
             );
+
+            _form = form;
+            config = mainConfig;
         }
 
         private void Configuration_FormClosed(object sender, FormClosedEventArgs e)
@@ -130,6 +133,9 @@ namespace WindowsFormsApp1.Views
             revs_grid.CurrentCell = revs_grid.Rows[Int32.Parse(_config.TABLE_REVS_Row)].
                                                     Cells[Int32.Parse(_config.TABLE_REVS_Column)];
 
+            
+            trackBar1.Maximum = 100;
+            trackBar1.Value = _config.track_bar;
         }
         private void revs_grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -160,17 +166,142 @@ namespace WindowsFormsApp1.Views
 
         private void Configuration_FormClosing(object sender, FormClosingEventArgs e)
         {
-            DialogResult dialogResult = MessageBox.Show("Do You Want To Save Your Data", "Save", MessageBoxButtons.YesNo);
+            //Recording warning
+            if (timer1.Enabled)
+            {
+                MessageBox.Show("The recording is ON.\nStop it before quitting", "Warning");
+                e.Cancel = true;
+                return;
+            }
+
+            //Quitting with savings
+            DialogResult dialogResult = MessageBox.Show("Do You Want To Save Your Data", "Save", MessageBoxButtons.YesNoCancel);
             if (dialogResult == DialogResult.Yes)
             {
                 this.DialogResult = System.Windows.Forms.DialogResult.OK;
                 SaveConfig();
                 
             }
+            else if (dialogResult == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
         }
         void SaveConfig() {
             MockDataStore store = new MockDataStore();
             store.SaveToProperties(config);
         }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            config.track_bar = trackBar1.Value;
+        }
+
+        private void record_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled)
+            {
+                timer1.Stop();
+                
+                record_button.Text = "REC";
+            }
+            else
+            {
+                timer1.Start();
+                record_textBox.Text = "0,0";
+                record_button.Text = "●";
+            }
+        }
+
+        private void decrease_Click(object sender, EventArgs e)
+        {
+            if (trackBar1.Value < 1)
+                return;
+
+            trackBar1.Value -= 1;
+            config.track_bar = trackBar1.Value;
+        }
+
+        private void increase_Click(object sender, EventArgs e)
+        {
+            if (trackBar1.Value > trackBar1.Maximum-1)
+                return;
+
+            trackBar1.Value += 1;
+            config.track_bar = trackBar1.Value;
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            record_textBox.Text = (Math.Round(Double.Parse(record_textBox.Text) + 0.1,1)).ToString();
+        }
+
+        #region Only numbers
+        
+        private void revs_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        bool keyPressCheck(object sender, KeyPressEventArgs e) {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+                (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+                return true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+                return true;
+            }
+            return false;
+        }
+
+        private void t_gas_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void t_red_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void gas_time_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void petrol_time_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void g_press_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void map_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+
+        private void l_on_m_box_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!keyPressCheck(sender, e))
+                return;
+        }
+        #endregion
     }
 }

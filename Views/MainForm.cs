@@ -10,12 +10,18 @@ using System.Windows.Forms;
 using WindowsFormsApp1.Views;
 using WindowsFormsApp1.Model;
 using WindowsFormsApp1.Services;
+using System.IO.Ports;
+using System.Globalization;
+using View = WindowsFormsApp1.Views.View;
 
 namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        //Main config
         public Config config { get; private set; }
+        //Main port for COM
+        private SerialPort MyserialPort_;
         public Form1()
         {
             InitializeComponent();
@@ -28,31 +34,37 @@ namespace WindowsFormsApp1
 
         private void Connect_button_Click(object sender, EventArgs e)
         {
-            /*if (buttonConnect_.Text == "Подключится")
+            if (Connect_button.Text == "Подключиться")
             {
                 try
-                {
-                    //выбор порта
-                    MyserialPort_.PortName = comboBoxPorts_.Text;
+                {   //выбор порта
+                    MyserialPort_.PortName = port_Box.Text;
+                    
                     //открытие
-                    MyserialPort_.Open();
+                    //3 попытки, интервал 1 сек.
+                    Retry.Do(() => MyserialPort_.Open(), TimeSpan.FromSeconds(1));
+
                     //элемент не действителен
-                    comboBoxPorts_.Enabled = false;
-                    ((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
-                    buttonConnect_.Text = "Отключится";
+                    port_Box.Enabled = false;
+
+                    //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
+                    Connect_button.Text = "Отключиться";
+                    conn_status.Text = "Подключено к порту " + port_Box.Text;
                 }
-                catch
+                catch(Exception ex)
                 {
-                    MessageBox.Show("Ошибка подключения");
+                    //throw new Exception(ex.Message);
+                    MessageBox.Show("Ошибка подключения\n"+ex.Message);
                 }
             }
-            else if (buttonConnect_.Text == "Отключится")
+            else if (Connect_button.Text == "Отключиться")
             {
                 MyserialPort_.Close();
-                comboBoxPorts_.Enabled = true;
-                ((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
-                buttonConnect_.Text = "Подключится";
-            }*/
+                port_Box.Enabled = true;
+                //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
+                Connect_button.Text = "Подключиться";
+                conn_status.Text = "Отключено";
+            }
 
         }
 
@@ -71,7 +83,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            //default
+            MyserialPort_ = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
         }
 
         private void Form1_Activated(object sender, EventArgs e)
@@ -82,7 +95,7 @@ namespace WindowsFormsApp1
 
         private void button_calibration_Click(object sender, EventArgs e)
         {
-            if (Int32.Parse(config.REVS) > 6500)
+            if (Math.Round(Double.Parse(config.REVS, CultureInfo.InvariantCulture)) > 6500)
             {
                 DialogResult dialogResult = MessageBox.Show("REVS is out of bound (6500 max)", "Warning", MessageBoxButtons.OK);
                 if (dialogResult == DialogResult.OK)
@@ -91,6 +104,19 @@ namespace WindowsFormsApp1
                 }
             }
             using (AutoCalibration window = new AutoCalibration(this, config))
+            {
+                //this.Enabled = false;
+                //window.Show();
+
+                if (window.ShowDialog() == DialogResult.OK)
+                    this.config = window.config;
+
+            }
+        }
+
+        private void view_Click(object sender, EventArgs e)
+        {
+            using (View window = new View(this, config))
             {
                 //this.Enabled = false;
                 //window.Show();

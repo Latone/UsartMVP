@@ -28,6 +28,7 @@ namespace WindowsFormsApp1.Model
         public bool inj_sens { get; set; } = true;
         public string l_on_mazda{ get; set; } = "";
 
+        public int track_bar { get; set; } = 0;
         public string toString() {
             return "Revs: " + REVS + "\n" +
                 "t_gas: " + T_GAS + "\n" +

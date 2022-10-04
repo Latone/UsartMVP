@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -74,7 +75,7 @@ namespace WindowsFormsApp1.Views
 
             revs_progressBar.Maximum = 6500;
             
-            revs_progressBar.Value = Int32.Parse(_config.REVS);
+            revs_progressBar.Value = (int)Double.Parse(_config.REVS, CultureInfo.InvariantCulture);
 
             calibration_bar.Maximum = 100;
         }
