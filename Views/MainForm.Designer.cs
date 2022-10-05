@@ -75,7 +75,7 @@ namespace WindowsFormsApp1
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(68, 71);
+            this.button1.Location = new System.Drawing.Point(71, 44);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 45);
             this.button1.TabIndex = 3;
@@ -85,7 +85,7 @@ namespace WindowsFormsApp1
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(224, 71);
+            this.button2.Location = new System.Drawing.Point(227, 44);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(90, 45);
             this.button2.TabIndex = 4;
@@ -95,7 +95,7 @@ namespace WindowsFormsApp1
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(398, 71);
+            this.button3.Location = new System.Drawing.Point(401, 44);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(101, 45);
             this.button3.TabIndex = 5;
@@ -105,7 +105,7 @@ namespace WindowsFormsApp1
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(580, 71);
+            this.button4.Location = new System.Drawing.Point(583, 44);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(96, 45);
             this.button4.TabIndex = 6;
@@ -115,7 +115,7 @@ namespace WindowsFormsApp1
             // button5
             // 
             this.button5.Enabled = false;
-            this.button5.Location = new System.Drawing.Point(68, 180);
+            this.button5.Location = new System.Drawing.Point(71, 153);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(96, 36);
             this.button5.TabIndex = 7;
@@ -125,7 +125,7 @@ namespace WindowsFormsApp1
             // button6
             // 
             this.button6.Enabled = false;
-            this.button6.Location = new System.Drawing.Point(224, 179);
+            this.button6.Location = new System.Drawing.Point(227, 152);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(90, 37);
             this.button6.TabIndex = 8;
@@ -135,7 +135,7 @@ namespace WindowsFormsApp1
             // button7
             // 
             this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(398, 179);
+            this.button7.Location = new System.Drawing.Point(401, 152);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(101, 37);
             this.button7.TabIndex = 9;
@@ -144,7 +144,7 @@ namespace WindowsFormsApp1
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(580, 179);
+            this.button8.Location = new System.Drawing.Point(583, 152);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(96, 37);
             this.button8.TabIndex = 10;
@@ -170,15 +170,17 @@ namespace WindowsFormsApp1
             // Config_status
             // 
             this.Config_status.AutoSize = true;
-            this.Config_status.Location = new System.Drawing.Point(281, 278);
+            this.Config_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Config_status.Location = new System.Drawing.Point(287, 206);
             this.Config_status.Name = "Config_status";
-            this.Config_status.Size = new System.Drawing.Size(0, 13);
+            this.Config_status.Size = new System.Drawing.Size(0, 24);
             this.Config_status.TabIndex = 13;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.Config_status);
             this.Controls.Add(this.port_Box);

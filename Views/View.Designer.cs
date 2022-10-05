@@ -559,7 +559,7 @@ namespace WindowsFormsApp1.Views
             this.label20.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.label20.Location = new System.Drawing.Point(35, 27);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(74, 31);
@@ -780,10 +780,13 @@ namespace WindowsFormsApp1.Views
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(804, 450);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "View";
             this.Text = "View";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.View_FormClosing);
+            this.Load += new System.EventHandler(this.View_Load);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

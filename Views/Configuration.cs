@@ -16,62 +16,50 @@ namespace WindowsFormsApp1.Views
     public partial class Configuration : Form, IManageConfigForm
     {
         private List<RadioButton> rb_container;
-        private Config _config;
+        //private Config Global.config;
         private Form _form;
 
+        void OnReceiveData(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "Config Update")
+            {
+                //Операция из другого потока (не Main) -> используем Invoke
+                this.Invoke(new Action(() => UpdateBoxes()));
+            }
+        }
         public Config config {
             get {
-                _config.REVS = revs_box.Text;
-                _config.T_GAS = t_gas_box.Text;
-                _config.T_RED = t_red_box.Text;
-                _config.GAS_TIME = gas_time_box.Text;
-                _config.PETROL_TIME = petrol_time_box.Text;
-                _config.G_PRES = g_press_box.Text;
-                _config.MAP = map_box.Text;
+                Global.config.REVS = revs_box.Text;
+                Global.config.T_GAS = t_gas_box.Text;
+                Global.config.T_RED = t_red_box.Text;
+                Global.config.GAS_TIME = gas_time_box.Text;
+                Global.config.PETROL_TIME = petrol_time_box.Text;
+                Global.config.G_PRES = g_press_box.Text;
+                Global.config.MAP = map_box.Text;
 
-                _config.TABLE_REVS = revs_grid.CurrentCell.Value.ToString();
-                _config.TABLE_REVS_Column = revs_grid.CurrentCell.ColumnIndex.ToString();
-                _config.TABLE_REVS_Row = revs_grid.CurrentCell.RowIndex.ToString();
+                Global.config.TABLE_REVS = revs_grid.CurrentCell.Value.ToString();
+                Global.config.TABLE_REVS_Column = revs_grid.CurrentCell.ColumnIndex.ToString();
+                Global.config.TABLE_REVS_Row = revs_grid.CurrentCell.RowIndex.ToString();
 
 
                 var checkedRadioButton = rb_container.OfType<RadioButton>()
                                           .FirstOrDefault(r => r.Checked);
 
                 int h = checkedRadioButton.Name[checkedRadioButton.Name.Length - 1] - '0';
-                _config.rb = (radio_button)h;
-                _config.l_on_mazda = l_on_m_box.Text;
-                _config.inj_sens = extra_inj_box.Checked;
+                Global.config.rb = (radio_button)h;
+                Global.config.l_on_mazda = l_on_m_box.Text;
+                Global.config.inj_sens = extra_inj_box.Checked;
 
-                return _config;
+                return Global.config;
             }
             set {
-                _config = value;
+                Global.config = value;
 
-                revs_box.Text = _config.REVS;
-                t_gas_box.Text = _config.T_GAS;
-                t_red_box.Text = _config.T_RED;
-                gas_time_box.Text = _config.GAS_TIME;
-                petrol_time_box.Text = _config.PETROL_TIME;
-                g_press_box.Text = _config.G_PRES;
-                map_box.Text = _config.MAP;
                 
-
-                string rbName = "";
-
-                if ((int)_config.rb == 0)
-                    rbName = "radioButton1";
-                else
-                    rbName = "radioButton" + ((int)_config.rb);
-
-                    RadioButton button = this.Controls.Find(rbName, true).FirstOrDefault() as RadioButton;
-                    button.Checked = true;
-                    //button.PerformClick();
-                l_on_m_box.Text = _config.l_on_mazda;
-                extra_inj_box.Checked = _config.inj_sens;
             }
         }
 
-        public Configuration(Form1 form,Config mainConfig)
+        public Configuration(Form1 form)
         {
             InitializeComponent();
 
@@ -83,7 +71,33 @@ namespace WindowsFormsApp1.Views
             );
 
             _form = form;
-            config = mainConfig;
+            UpdateBoxes();
+
+            
+        }
+        void UpdateBoxes() {
+
+            revs_box.Text = Global.config.REVS;
+            t_gas_box.Text = Global.config.T_GAS;
+            t_red_box.Text = Global.config.T_RED;
+            gas_time_box.Text = Global.config.GAS_TIME;
+            petrol_time_box.Text = Global.config.PETROL_TIME;
+            g_press_box.Text = Global.config.G_PRES;
+            map_box.Text = Global.config.MAP;
+
+
+            string rbName = "";
+
+            if ((int)Global.config.rb == 0)
+                rbName = "radioButton1";
+            else
+                rbName = "radioButton" + ((int)Global.config.rb);
+
+            RadioButton button = this.Controls.Find(rbName, true).FirstOrDefault() as RadioButton;
+            button.Checked = true;
+            //button.PerformClick();
+            l_on_m_box.Text = Global.config.l_on_mazda;
+            extra_inj_box.Checked = Global.config.inj_sens;
         }
 
         private void Configuration_FormClosed(object sender, FormClosedEventArgs e)
@@ -130,12 +144,14 @@ namespace WindowsFormsApp1.Views
             revs_grid.Rows[11].HeaderCell.Value = "18,00";
 
 
-            revs_grid.CurrentCell = revs_grid.Rows[Int32.Parse(_config.TABLE_REVS_Row)].
-                                                    Cells[Int32.Parse(_config.TABLE_REVS_Column)];
+            revs_grid.CurrentCell = revs_grid.Rows[Int32.Parse(Global.config.TABLE_REVS_Row)].
+                                                    Cells[Int32.Parse(Global.config.TABLE_REVS_Column)];
 
             
             trackBar1.Maximum = 100;
-            trackBar1.Value = _config.track_bar;
+            trackBar1.Value = Global.config.track_bar;
+
+            Global.StaticPropertyChanged += OnReceiveData;
         }
         private void revs_grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -166,6 +182,8 @@ namespace WindowsFormsApp1.Views
 
         private void Configuration_FormClosing(object sender, FormClosingEventArgs e)
         {
+            //Unsub
+            Global.StaticPropertyChanged -= OnReceiveData;
             //Recording warning
             if (timer1.Enabled)
             {
