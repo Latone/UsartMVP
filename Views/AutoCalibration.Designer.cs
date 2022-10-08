@@ -31,6 +31,9 @@ namespace WindowsFormsApp1.Views
         {
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
+            this.GAS_bar = new System.Windows.Forms.ProgressBar();
+            this.label31 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.revs_box = new System.Windows.Forms.TextBox();
@@ -84,10 +87,8 @@ namespace WindowsFormsApp1.Views
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
-            this.GAS_bar = new System.Windows.Forms.ProgressBar();
-            this.label31 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3.SuspendLayout();
+            this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
@@ -96,7 +97,6 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            this.tableLayoutPanel14.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel3
@@ -117,6 +117,44 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 152F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(800, 152);
             this.tableLayoutPanel3.TabIndex = 27;
+            // 
+            // tableLayoutPanel14
+            // 
+            this.tableLayoutPanel14.ColumnCount = 1;
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel14.Controls.Add(this.GAS_bar, 0, 1);
+            this.tableLayoutPanel14.Controls.Add(this.label31, 0, 0);
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(642, 3);
+            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
+            this.tableLayoutPanel14.RowCount = 2;
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.11111F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.88889F));
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(153, 108);
+            this.tableLayoutPanel14.TabIndex = 4;
+            // 
+            // GAS_bar
+            // 
+            this.GAS_bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GAS_bar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.GAS_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.GAS_bar.Location = new System.Drawing.Point(3, 74);
+            this.GAS_bar.Name = "GAS_bar";
+            this.GAS_bar.Size = new System.Drawing.Size(147, 24);
+            this.GAS_bar.TabIndex = 1;
+            this.GAS_bar.Value = 56;
+            // 
+            // label31
+            // 
+            this.label31.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.label31.Location = new System.Drawing.Point(39, 34);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(74, 31);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "GAS";
             // 
             // tableLayoutPanel4
             // 
@@ -763,44 +801,6 @@ namespace WindowsFormsApp1.Views
             this.timer1.Interval = 30;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
-            // tableLayoutPanel14
-            // 
-            this.tableLayoutPanel14.ColumnCount = 1;
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel14.Controls.Add(this.GAS_bar, 0, 1);
-            this.tableLayoutPanel14.Controls.Add(this.label31, 0, 0);
-            this.tableLayoutPanel14.Location = new System.Drawing.Point(642, 3);
-            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
-            this.tableLayoutPanel14.RowCount = 2;
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 61.11111F));
-            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 38.88889F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(153, 108);
-            this.tableLayoutPanel14.TabIndex = 4;
-            // 
-            // GAS_bar
-            // 
-            this.GAS_bar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.GAS_bar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.GAS_bar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.GAS_bar.Location = new System.Drawing.Point(3, 74);
-            this.GAS_bar.Name = "GAS_bar";
-            this.GAS_bar.Size = new System.Drawing.Size(147, 24);
-            this.GAS_bar.TabIndex = 1;
-            this.GAS_bar.Value = 56;
-            // 
-            // label31
-            // 
-            this.label31.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.label31.Location = new System.Drawing.Point(39, 34);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(74, 31);
-            this.label31.TabIndex = 0;
-            this.label31.Text = "GAS";
-            // 
             // AutoCalibration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -813,6 +813,8 @@ namespace WindowsFormsApp1.Views
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.AutoCalibration_FormClosing);
             this.Load += new System.EventHandler(this.AutoCalibration_Load);
             this.tableLayoutPanel3.ResumeLayout(false);
+            this.tableLayoutPanel14.ResumeLayout(false);
+            this.tableLayoutPanel14.PerformLayout();
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
             this.tableLayoutPanel5.ResumeLayout(false);
@@ -827,8 +829,6 @@ namespace WindowsFormsApp1.Views
             this.groupBox1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();
-            this.tableLayoutPanel14.ResumeLayout(false);
-            this.tableLayoutPanel14.PerformLayout();
             this.ResumeLayout(false);
 
         }

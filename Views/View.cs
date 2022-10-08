@@ -19,7 +19,7 @@ namespace WindowsFormsApp1.Views
         private Form _form;
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Config Update")
+            if (e.PropertyName == "Config Update" && IsHandleCreated)
             {
                 //Операция из другого потока (не Main) -> используем Invoke
                 this.Invoke(new Action(() => UpdateBoxes()));

@@ -20,6 +20,10 @@ namespace WindowsFormsApp1.Model
         {
             NotifyStaticPropertyChanged("Config Update");
         }
+        public static void COMdisconnect()
+        {
+            NotifyStaticPropertyChanged("COM Disconnected");
+        }
 
         private static Config _config = null;
 

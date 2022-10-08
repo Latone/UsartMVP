@@ -41,5 +41,12 @@ namespace WindowsFormsApp1.Model
                 "inj_sens: " + inj_sens + "\n" +
                 "l_on_mazda: " + l_on_mazda;
         }
+        public string getBasicInfo()
+        {
+            return "param1: " + REVS + "\n" +
+                "param2: " + T_GAS + "\n" +
+                "param3: " + T_RED + "\n" +
+                "param4: " + GAS_TIME;
+        }
     }
 }

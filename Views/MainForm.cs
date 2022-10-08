@@ -16,11 +16,8 @@ namespace WindowsFormsApp1
 
     public partial class Form1 : Form
     {
-        //Main config
-        //public Config config { get; private set; }
         //Main port for COM
         private SerialPort MyserialPort_;
-
         public Form1()
         {
             InitializeComponent();
@@ -30,12 +27,60 @@ namespace WindowsFormsApp1
             t.Wait();
             Global.config = t.Result;
         }
+        void UpdateDisconnectedView() {
+            MyserialPort_.DataReceived -= new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
+
+            Connect_button.Text = "Подключиться";
+            port_box.Enabled = true;
+            update_ports.Enabled = true;
+            conn_status.Text = "Отключено";
+
+            Global.config.REVS = "0";
+            Global.config.T_GAS = "0";
+            Global.config.T_RED = "0";
+            Global.config.GAS_TIME = "0";
+
+            Global.updateConfig();
+
+            MessageBox.Show("COM-порт отключён");
+        }
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Config Update")
             {
                 //Операция из другого потока (не Main) -> используем Invoke
-                this.Invoke(new Action(() => Config_status.Text = Global.config.toString()));
+                this.Invoke(new Action(() => Config_status.Text = Global.config.getBasicInfo()));
+            }
+            if (e.PropertyName == "COM Disconnected")
+            {
+                //Обычное отключение по кнопке
+                if (conn_status.Text == "Отключено")
+                {
+                    this.BeginInvoke(new Action(() => {
+                        UpdateDisconnectedView();
+                    }));
+                    return;
+                }    
+                //Переподключение
+                //3 попытки, интервал 1 сек.
+                try
+                {
+                    if (!MyserialPort_.IsOpen)
+                    {
+                        Retry.Do(() => MyserialPort_.Open(), TimeSpan.FromSeconds(1));
+                        MessageBox.Show("Порт переподключен");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //throw new Exception(ex.Message);
+                    MessageBox.Show("Ошибка переподключения\n" + ex.Message);
+                
+
+                    this.BeginInvoke(new Action(() => {
+                        UpdateDisconnectedView();
+                    }));
+                }
             }
         }
                 private void Connect_button_Click(object sender, EventArgs e)
@@ -44,7 +89,8 @@ namespace WindowsFormsApp1
             {
                 try
                 {   //выбор порта
-                    MyserialPort_.PortName = port_Box.Text;
+                    //if(!MyserialPort_.IsOpen)
+                    MyserialPort_.PortName = port_box.Text;
                     //Хэндл ивента на получение данных
                     MyserialPort_.DataReceived += new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
                     
@@ -54,11 +100,11 @@ namespace WindowsFormsApp1
                     Retry.Do(() => MyserialPort_.Open(), TimeSpan.FromSeconds(1));
 
                     //элемент не действителен
-                    port_Box.Enabled = false;
-
+                    port_box.Enabled = false;
+                    update_ports.Enabled = false;
                     //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
                     Connect_button.Text = "Отключиться";
-                    conn_status.Text = "Подключено к порту " + port_Box.Text;
+                    conn_status.Text = "Подключено к порту " + port_box.Text;
                 }
                 catch(Exception ex)
                 {
@@ -68,11 +114,14 @@ namespace WindowsFormsApp1
             }
             else if (Connect_button.Text == "Отключиться")
             {
+                conn_status.Text = "Отключено";
                 MyserialPort_.Close();
-                port_Box.Enabled = true;
+
+                port_box.Enabled = true;
+                update_ports.Enabled = true;
                 //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
                 Connect_button.Text = "Подключиться";
-                conn_status.Text = "Отключено";
+                
             }
 
         }
@@ -96,11 +145,12 @@ namespace WindowsFormsApp1
             MyserialPort_ = new SerialPort("COM1", 9600, Parity.None, 8, StopBits.One);
             //Subscribe (Only once, 'cos it's global) to update the values in Main form:
             Global.StaticPropertyChanged += OnReceiveData;
+            updports();
         }
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            Config_status.Text = Global.config.toString();
+            Config_status.Text = Global.config.getBasicInfo();
         }
 
 
@@ -135,6 +185,21 @@ namespace WindowsFormsApp1
                 if (window.ShowDialog() == DialogResult.OK) { }
                     //this.config = window.config;
 
+            }
+        }
+
+        private void update_ports_Click(object sender, EventArgs e)
+        {
+            updports();
+        }
+        void updports() {
+            string[] ports = SerialPort.GetPortNames();
+            port_box.Text = "";
+            port_box.Items.Clear();
+            if (ports.Length != 0)
+            {
+                port_box.Items.AddRange(ports);
+                port_box.SelectedIndex = 0;
             }
         }
     }
