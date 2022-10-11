@@ -18,6 +18,8 @@ namespace WindowsFormsApp1.Model
         public string REVS { get; set; } = "";
         public string T_GAS { get; set; } = "";
         public string T_RED { get; set; } = "";
+
+        public string T_AIR { get; set; } = "0";
         public string GAS_TIME { get; set; } = "";
         public string PETROL_TIME { get; set; } = "";
         public string G_PRES { get; set; } = "";
@@ -27,6 +29,16 @@ namespace WindowsFormsApp1.Model
         public string TABLE_REVS_Row { get; set; } = "0";
         public bool inj_sens { get; set; } = true;
         public string l_on_mazda{ get; set; } = "";
+
+        public string time_1 { get; set; } = "0";
+        public string time_2 { get; set; } = "0";
+        public string time_3 { get; set; } = "0";
+        public string time_4 { get; set; } = "0";
+
+        public string test_time { get; set; } = "0";
+
+        public bool connection_error { get; set; } = false;
+        public string test_pressure { get; set; } = "0";
 
         public int track_bar { get; set; } = 0;
         public string toString() {
@@ -41,12 +53,22 @@ namespace WindowsFormsApp1.Model
                 "inj_sens: " + inj_sens + "\n" +
                 "l_on_mazda: " + l_on_mazda;
         }
-        public string getBasicInfo()
+        public string getBasicInfo1()
         {
-            return "param1: " + REVS + "\n" +
-                "param2: " + T_GAS + "\n" +
-                "param3: " + T_RED + "\n" +
-                "param4: " + GAS_TIME;
+            return "Pressure: " + test_pressure + "\n\n"+
+                "time_span1: " + time_1 + "\n" +
+                "time_span2: " + time_2 + "\n" +
+                "time_span3: " + time_3 + "\n" +
+                "time_span4: " + time_4;
+        }
+        public string getBasicInfo2()
+        {
+            return "T_RED " + T_RED + "\n" +
+                "T_GAS: " + T_GAS + "\n" +
+                "T_AIR: " + T_AIR + "\n" +
+                "G_PRES: " + G_PRES + "\n" +
+                "MAP: " + MAP+ "\n" +
+                "test_count: " + test_time;
         }
     }
 }

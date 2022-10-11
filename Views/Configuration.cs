@@ -84,7 +84,8 @@ namespace WindowsFormsApp1.Views
             petrol_time_box.Text = Global.config.PETROL_TIME;
             g_press_box.Text = Global.config.G_PRES;
             map_box.Text = Global.config.MAP;
-
+            ait_box.Text = Global.config.T_AIR;
+            test__count_bar.Value = Int32.Parse(Global.config.test_time);
 
             string rbName = "";
 

@@ -10,6 +10,7 @@ using System.Globalization;
 using View = WindowsFormsApp1.Views.View;
 using System.Reflection;
 using System.ComponentModel;
+using System.Threading;
 
 namespace WindowsFormsApp1
 {
@@ -40,6 +41,17 @@ namespace WindowsFormsApp1
             Global.config.T_RED = "0";
             Global.config.GAS_TIME = "0";
 
+            Global.config.test_pressure = "0";
+            Global.config.T_AIR = "0";
+            Global.config.G_PRES = "0";
+            Global.config.time_1 = "0";
+            Global.config.time_2 = "0";
+            Global.config.time_3 = "0";
+            Global.config.time_4 = "0";
+            Global.config.test_time = "0";
+            Global.config.MAP = "0";
+            Global.config.PETROL_TIME = "0";
+
             Global.updateConfig();
 
             MessageBox.Show("COM-порт отключён");
@@ -49,25 +61,32 @@ namespace WindowsFormsApp1
             if (e.PropertyName == "Config Update")
             {
                 //Операция из другого потока (не Main) -> используем Invoke
-                this.Invoke(new Action(() => Config_status.Text = Global.config.getBasicInfo()));
+                this.Invoke(new Action(() => { 
+                    Config_status_1.Text = Global.config.getBasicInfo1();
+                    Config_status_2.Text = Global.config.getBasicInfo2();
+                }));
             }
             if (e.PropertyName == "COM Disconnected")
             {
                 //Обычное отключение по кнопке
-                if (conn_status.Text == "Отключено")
+                if (conn_status.Text == "Отключено" && !Global.config.connection_error)
                 {
                     this.BeginInvoke(new Action(() => {
                         UpdateDisconnectedView();
+                        Global.config.connection_error = false;
                     }));
                     return;
-                }    
+                }
                 //Переподключение
                 //3 попытки, интервал 1 сек.
-                try
+                if (conn_status.Text != "Отключено" && Global.config.connection_error)
+                    try
                 {
+
                     if (!MyserialPort_.IsOpen)
                     {
                         Retry.Do(() => MyserialPort_.Open(), TimeSpan.FromSeconds(1));
+                        Global.config.connection_error = false;
                         MessageBox.Show("Порт переподключен");
                     }
                 }
@@ -75,7 +94,7 @@ namespace WindowsFormsApp1
                 {
                     //throw new Exception(ex.Message);
                     MessageBox.Show("Ошибка переподключения\n" + ex.Message);
-                
+                    Global.config.connection_error = false;
 
                     this.BeginInvoke(new Action(() => {
                         UpdateDisconnectedView();
@@ -114,14 +133,28 @@ namespace WindowsFormsApp1
             }
             else if (Connect_button.Text == "Отключиться")
             {
+                
+                //Thread.Sleep(150);
+                //MyserialPort_.DataReceived -= new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
+
                 conn_status.Text = "Отключено";
-                MyserialPort_.Close();
+                try
+                {
+                    this.BeginInvoke(new Action(() =>
+                    {
+                        MyserialPort_.Close();
+                    }));
+                    Global.COMdisconnect();
+                }
+                catch (Exception ex) {
+                    //Global.COMdisconnect();
+                }
 
                 port_box.Enabled = true;
                 update_ports.Enabled = true;
                 //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
                 Connect_button.Text = "Подключиться";
-                
+                //
             }
 
         }
@@ -150,7 +183,8 @@ namespace WindowsFormsApp1
 
         private void Form1_Activated(object sender, EventArgs e)
         {
-            Config_status.Text = Global.config.getBasicInfo();
+            Config_status_1.Text = Global.config.getBasicInfo1();
+            Config_status_2.Text = Global.config.getBasicInfo2();
         }
 
 
@@ -200,6 +234,19 @@ namespace WindowsFormsApp1
             {
                 port_box.Items.AddRange(ports);
                 port_box.SelectedIndex = 0;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            using (Plot3D.Graph3DMainForm window = new Plot3D.Graph3DMainForm())
+            {
+                //this.Enabled = false;
+                //window.Show();
+
+                if (window.ShowDialog() == DialogResult.OK) { }
+                //this.config = window.config;
+
             }
         }
     }

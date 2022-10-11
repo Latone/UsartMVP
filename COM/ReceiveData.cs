@@ -12,22 +12,42 @@ namespace WindowsFormsApp1.COM
 {
     public class ReceiveData : EventArgs
     {
-        private static byte data1, data2, data3, data4, data5, data6, data7, data8, data9, data10;
-
+        private static byte[] data;
         public ReceiveData(Config cnfg)
         {
-            Global.config = cnfg;
+            try
+            {
+                Global.config = cnfg;
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception(ex.Message);
+                Global.config.connection_error = true;
+                Global.COMdisconnect();
+                return;
+            }
         }
         public static void DataReceivedHandler(
                         object sender,
                         SerialDataReceivedEventArgs e)
         {
-            SerialPort sp = (SerialPort)sender;
-            EvaluateData(sp);
-        }
+            try
+            {
+                SerialPort sp = (SerialPort)sender;
+                EvaluateData(sp);
+            }
+            catch (Exception ex)
+            {
+                //throw new Exception(ex.Message);
+                Global.config.connection_error = true;
+                Global.COMdisconnect();
+                return;
+            }
+            }
         private static void EvaluateData(SerialPort MyserialPort)
         {
-           // MyserialPort.DiscardInBuffer();
+            // MyserialPort.DiscardInBuffer();
+            data = new byte[22];
             int counter_bytes = 0;
             byte[] BufferByte= new byte[2048];
             string str="",str1="",str2="",str3="",str4="";
@@ -36,89 +56,150 @@ namespace WindowsFormsApp1.COM
 
             try
             {
+                Thread.Sleep(350);
                 counter_bytes = MyserialPort.BytesToRead;
-            }
-            catch
-            {
-                Global.COMdisconnect();
-                return;
-            }
             
-
-                for (int i = 0; i <= 20; i++)
+                for (int i = 0; i < counter_bytes; i++)
                 {
-                    try
-                    {
+                    
                         BufferByte[i] = (byte)MyserialPort.ReadByte();   // Читаем один Байт из входного буфера
-                    }
-                    catch (Exception ex)
-                    {
-                    Global.COMdisconnect();
-                    return;
-                }
+                 
                 }
                 //*****************************************************************
-                for (int j = 0; j <= (counter_bytes - 1); j++)
+                for (int j = 0; j < counter_bytes; j++)
                 {
                     if (j + 2 <= counter_bytes - 1 && ((char)BufferByte[j] == '*') && (BufferByte[j + 1] == 'D') && (BufferByte[j + 2] == '*'))
                     {
-                        data1 = BufferByte[j + 3];
-                        data2 = BufferByte[j + 4];
-                        data3 = BufferByte[j + 5];
-                        data4 = BufferByte[j + 6];
-                        data5 = BufferByte[j + 7];
-                        data6 = BufferByte[j + 8];
-                        data7 = BufferByte[j + 9];
-                        data8 = BufferByte[j + 10];
-                        data9 = BufferByte[j + 11];
-                        data10 = BufferByte[j + 12];
-
-                        break;                               //Как только нашли вхождение то стоп чтение в этом цикле
-                    }
+                    j += 3;
+                        data[0] = BufferByte[j++];
+                        data[1] = BufferByte[j++];
+                        data[2] = BufferByte[j++];
+                        data[3] = BufferByte[j++];
+                        data[4] = BufferByte[j++];
+                        data[5] = BufferByte[j++];
+                        data[6] = BufferByte[j++];
+                        data[7] = BufferByte[j++];
+                        data[8] = BufferByte[j++];
+                        data[9] = BufferByte[j++];
+                    if (data[0] != 0 && data[10] != 0)
+                        break;
                 }
+                if (j + 2 < counter_bytes && ((char)BufferByte[j] == '*') && (BufferByte[j + 1] == 'D') && (BufferByte[j + 2] == '#'))
+                {
+                    data[10] = BufferByte[j + 3];
+                    data[11] = BufferByte[j + 4];
+                    data[12] = BufferByte[j + 5];
+                    data[13] = BufferByte[j + 6];
+                    data[14] = BufferByte[j + 7];
+                    data[15] = BufferByte[j + 8];
+                    data[16] = BufferByte[j + 9];
+                    data[17] = BufferByte[j + 10];
+                    data[18] = BufferByte[j + 11];
+                    data[19] = BufferByte[j + 12];
+                    data[20] = BufferByte[j + 13];
+                    data[21] = BufferByte[j + 14];
+                    if(data[0] != 0 && data[10]!=0)
+                        break;                               //Как только нашли вхождение то стоп чтение в этом цикле
+                }
+            }
+                //if (data[0] == 0 || data[10] == 0)
+                    //Thread.Sleep(500);
                 //*****************************************************************
-                resultat = data2;                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+                resultat = data[1];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
                 resultat = resultat << 8;                    // data2  это старший байт и смещаем его влево.
-                resultat = (resultat | data1);               // И склеиваем с младшим.
+                resultat = (resultat | data[0]);               // И склеиваем с младшим.
 
-                resultat1 = data4;                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+                Global.config.test_pressure = resultat.ToString();
+
+                resultat1 = data[3];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
                 resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
-                resultat1 = (resultat1 | data3);               // И склеиваем с младшим.
+                resultat1 = (resultat1 | data[2]);               // И склеиваем с младшим.
 
                 resultat = (resultat * 1000) / 1000 - 990;
                 
                 
 
                 str1 = Convert.ToString(resultat1 /100 + "." + (resultat1 % 100));
-                Global.config.REVS = str1;
+                Global.config.time_1 = str1;
 
-                resultat1 = data6;                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+                resultat1 = data[5];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
                 resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
-                resultat1 = (resultat1 | data5);               // И склеиваем с младшим.
+                resultat1 = (resultat1 | data[4]);               // И склеиваем с младшим.
 
                 str2 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
-                Global.config.T_GAS = str2;
+                Global.config.time_2 = str2;
 
-                resultat1 = data8;                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+                resultat1 = data[7];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
                 resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
-                resultat1 = (resultat1 | data7);               // И склеиваем с младшим.
+                resultat1 = (resultat1 | data[6]);               // И склеиваем с младшим.
 
                 str3 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
-                Global.config.T_RED = str3;
+                Global.config.time_3 = str3;
 
-                resultat1 = data10;                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+                resultat1 = data[9];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
                 resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
-                resultat1 = (resultat1 | data9);               // И склеиваем с младшим.
+                resultat1 = (resultat1 | data[8]);               // И склеиваем с младшим.
 
                 str4 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
-                Global.config.GAS_TIME = str4;
+                Global.config.time_4 = str4;
 
-                str = "";
-                Global.updateConfig();
+            //Second frame
 
+            resultat1 = data[11];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[10]);               // И склеиваем с младшим.
+
+            //str2 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.T_RED = resultat1.ToString();
+
+            resultat1 = data[13];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[12]);               // И склеиваем с младшим.
+
+            //str3 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.T_GAS = resultat1.ToString();
+
+            resultat1 = data[15];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[14]);               // И склеиваем с младшим.
+
+            //str4 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.T_AIR = resultat1.ToString();
+
+            resultat1 = data[17];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[16]);               // И склеиваем с младшим.
+
+            str3 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.G_PRES = str3;
+
+            resultat1 = data[19];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[18]);               // И склеиваем с младшим.
+
+            str4 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.MAP = str4;
+
+            resultat1 = data[21];                            // Здесь склейка поступающих данных из 2*8 -> 16 бит.
+            resultat1 = resultat1 << 8;                    // data2  это старший байт и смещаем его влево.
+            resultat1 = (resultat1 | data[20]);               // И склеиваем с младшим.
+
+            //str4 = Convert.ToString(resultat1 / 100 + "." + (resultat1 % 100));
+            Global.config.test_time = resultat1.ToString();
+
+            str = "";
             MyserialPort.DiscardInBuffer();
 
-            //MyserialPort.DiscardOutBuffer();
+                //MyserialPort.DiscardOutBuffer();
+            }
+            catch(Exception ex)
+            {
+                //throw new Exception(ex.Message);
+                Global.config.connection_error = true;
+                Global.COMdisconnect();
+                return;
+            }
+            Global.updateConfig();
         }
 
     }

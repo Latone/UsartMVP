@@ -38,6 +38,7 @@ namespace WindowsFormsApp1.Views
                 Global.config.PETROL_TIME = petrol_time_box.Text;
                 Global.config.G_PRES = g_press_box.Text;
                 Global.config.MAP = map_box.Text;
+                Global.config.T_AIR = air_box.Text;
 
                 var checkedRadioButton = rb_container.OfType<RadioButton>()
                                           .FirstOrDefault(r => r.Checked);
@@ -80,6 +81,7 @@ namespace WindowsFormsApp1.Views
             g_press_box.Text = Global.config.G_PRES;
             map_box.Text = Global.config.MAP;
             revs_rpm_box.Text = Global.config.REVS;
+            air_box.Text = Global.config.T_AIR;
 
             string rbName = "";
 

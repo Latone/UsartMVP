@@ -66,7 +66,7 @@ namespace WindowsFormsApp1.Views
             mp_tb.Text = Global.config.MAP;
             pi_tb.Text = Global.config.PETROL_TIME;
             gi_tb.Text = Global.config.GAS_TIME;
-
+            air_box.Text = Global.config.T_AIR;
             //Bars
             revs_rpm_b.Value = (int)Double.Parse(Global.config.REVS, CultureInfo.InvariantCulture);
             t_red_b.Value = (int)Double.Parse(Global.config.T_RED, CultureInfo.InvariantCulture);
@@ -75,7 +75,7 @@ namespace WindowsFormsApp1.Views
             m_pr_b.Value = (int)Double.Parse(Global.config.MAP, CultureInfo.InvariantCulture);
             p_inj_b.Value = (int)Double.Parse(Global.config.PETROL_TIME, CultureInfo.InvariantCulture);
             gas_inj_b.Value = (int)Double.Parse(Global.config.GAS_TIME, CultureInfo.InvariantCulture);
-
+            air_bar.Value = (int)Double.Parse(Global.config.T_AIR, CultureInfo.InvariantCulture);
             string rbName = "";
 
             if ((int)Global.config.rb == 0)
@@ -112,6 +112,16 @@ namespace WindowsFormsApp1.Views
         private void View_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.StaticPropertyChanged -= OnReceiveData;
+        }
+
+        private void tableLayoutPanel9_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void tg_tb_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

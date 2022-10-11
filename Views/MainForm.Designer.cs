@@ -41,10 +41,11 @@ namespace WindowsFormsApp1
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.Config_status = new System.Windows.Forms.Label();
+            this.Config_status_1 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.port_box = new System.Windows.Forms.ComboBox();
             this.update_ports = new System.Windows.Forms.Button();
+            this.Config_status_2 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -63,7 +64,7 @@ namespace WindowsFormsApp1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(508, 397);
+            this.label1.Location = new System.Drawing.Point(587, 399);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(153, 19);
             this.label1.TabIndex = 1;
@@ -73,7 +74,7 @@ namespace WindowsFormsApp1
             // 
             this.conn_status.AutoSize = true;
             this.conn_status.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.conn_status.Location = new System.Drawing.Point(508, 417);
+            this.conn_status.Location = new System.Drawing.Point(587, 418);
             this.conn_status.Name = "conn_status";
             this.conn_status.Size = new System.Drawing.Size(92, 19);
             this.conn_status.TabIndex = 2;
@@ -172,25 +173,26 @@ namespace WindowsFormsApp1
             this.button8.TabIndex = 10;
             this.button8.Text = "Диаграммы";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(508, 356);
+            this.label2.Location = new System.Drawing.Point(587, 336);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(141, 19);
             this.label2.TabIndex = 11;
             this.label2.Text = "Порт подключения:";
             // 
-            // Config_status
+            // Config_status_1
             // 
-            this.Config_status.AutoSize = true;
-            this.Config_status.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.Config_status.Location = new System.Drawing.Point(284, 290);
-            this.Config_status.Name = "Config_status";
-            this.Config_status.Size = new System.Drawing.Size(0, 24);
-            this.Config_status.TabIndex = 13;
+            this.Config_status_1.AutoSize = true;
+            this.Config_status_1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Config_status_1.Location = new System.Drawing.Point(234, 289);
+            this.Config_status_1.Name = "Config_status_1";
+            this.Config_status_1.Size = new System.Drawing.Size(0, 24);
+            this.Config_status_1.TabIndex = 13;
             // 
             // tableLayoutPanel1
             // 
@@ -218,14 +220,14 @@ namespace WindowsFormsApp1
             // port_box
             // 
             this.port_box.FormattingEnabled = true;
-            this.port_box.Location = new System.Drawing.Point(674, 355);
+            this.port_box.Location = new System.Drawing.Point(591, 359);
             this.port_box.Name = "port_box";
             this.port_box.Size = new System.Drawing.Size(89, 21);
             this.port_box.TabIndex = 15;
             // 
             // update_ports
             // 
-            this.update_ports.Location = new System.Drawing.Point(766, 355);
+            this.update_ports.Location = new System.Drawing.Point(682, 358);
             this.update_ports.Name = "update_ports";
             this.update_ports.Size = new System.Drawing.Size(22, 21);
             this.update_ports.TabIndex = 16;
@@ -233,16 +235,26 @@ namespace WindowsFormsApp1
             this.update_ports.UseVisualStyleBackColor = true;
             this.update_ports.Click += new System.EventHandler(this.update_ports_Click);
             // 
+            // Config_status_2
+            // 
+            this.Config_status_2.AutoSize = true;
+            this.Config_status_2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Config_status_2.Location = new System.Drawing.Point(427, 289);
+            this.Config_status_2.Name = "Config_status_2";
+            this.Config_status_2.Size = new System.Drawing.Size(0, 24);
+            this.Config_status_2.TabIndex = 17;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Config_status_2);
             this.Controls.Add(this.update_ports);
             this.Controls.Add(this.port_box);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.Config_status);
+            this.Controls.Add(this.Config_status_1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.conn_status);
             this.Controls.Add(this.label1);
@@ -271,10 +283,11 @@ namespace WindowsFormsApp1
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label Config_status;
+        private System.Windows.Forms.Label Config_status_1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.ComboBox port_box;
         private System.Windows.Forms.Button update_ports;
+        private System.Windows.Forms.Label Config_status_2;
     }
 }
 
