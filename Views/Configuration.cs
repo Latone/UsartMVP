@@ -19,6 +19,7 @@ namespace WindowsFormsApp1.Views
         //private Config Global.config;
         private Form _form;
 
+        //Подписанный метод
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Config Update" && IsHandleCreated)
@@ -27,6 +28,9 @@ namespace WindowsFormsApp1.Views
                 this.Invoke(new Action(() => UpdateBoxes()));
             }
         }
+
+        //Локальный GET;SET;
+        //Обновление конфигурации/Вывод данных в GUI
         public Config config {
             get {
                 Global.config.REVS = revs_box.Text;
@@ -54,11 +58,11 @@ namespace WindowsFormsApp1.Views
             }
             set {
                 Global.config = value;
-
-                
             }
         }
 
+        //Конструктор
+        //Загрузка данных из общего конфига
         public Configuration(Form1 form)
         {
             InitializeComponent();
@@ -96,7 +100,6 @@ namespace WindowsFormsApp1.Views
 
             RadioButton button = this.Controls.Find(rbName, true).FirstOrDefault() as RadioButton;
             button.Checked = true;
-            //button.PerformClick();
             l_on_m_box.Text = Global.config.l_on_mazda;
             extra_inj_box.Checked = Global.config.inj_sens;
         }
@@ -111,6 +114,7 @@ namespace WindowsFormsApp1.Views
 
         }
 
+        //Ивент при загрузке
         private void Configuration_Load(object sender, EventArgs e)
         {
             revs_grid.AutoGenerateColumns = false;
@@ -154,6 +158,9 @@ namespace WindowsFormsApp1.Views
 
             Global.StaticPropertyChanged += OnReceiveData;
         }
+
+        //Специфичное форматирование вида таблицы
+        #region CellFormatting
         private void revs_grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -180,7 +187,9 @@ namespace WindowsFormsApp1.Views
                 e.AdvancedBorderStyle.Left = revs_grid.AdvancedCellBorderStyle.Left;
             }
         }
+        #endregion
 
+        //Ивент при закрытии
         private void Configuration_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Unsub
@@ -206,6 +215,8 @@ namespace WindowsFormsApp1.Views
                 e.Cancel = true;
             }
         }
+
+        //Сохранение в Properties.Settings
         void SaveConfig() {
             MockDataStore store = new MockDataStore();
             store.SaveToProperties(config);
@@ -216,6 +227,7 @@ namespace WindowsFormsApp1.Views
             config.track_bar = trackBar1.Value;
         }
 
+        //Запись
         private void record_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled)
@@ -232,6 +244,7 @@ namespace WindowsFormsApp1.Views
             }
         }
 
+        // '-' - кнопка около Scrollbar
         private void decrease_Click(object sender, EventArgs e)
         {
             if (trackBar1.Value < 1)
@@ -240,7 +253,7 @@ namespace WindowsFormsApp1.Views
             trackBar1.Value -= 1;
             config.track_bar = trackBar1.Value;
         }
-
+        // '+' - кнопка около Scrollbar
         private void increase_Click(object sender, EventArgs e)
         {
             if (trackBar1.Value > trackBar1.Maximum-1)
@@ -250,11 +263,13 @@ namespace WindowsFormsApp1.Views
             config.track_bar = trackBar1.Value;
         }
 
+        //Таймер при записи
         private void timer1_Tick(object sender, EventArgs e)
         {
             record_textBox.Text = (Math.Round(Double.Parse(record_textBox.Text) + 0.1,1)).ToString();
         }
 
+        //Текст боксы, обрабатывать только числа при вводе
         #region Only numbers
         
         private void revs_box_KeyPress(object sender, KeyPressEventArgs e)

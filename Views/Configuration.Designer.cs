@@ -81,7 +81,12 @@ namespace WindowsFormsApp1.Views
             this.record_button = new System.Windows.Forms.Button();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.T_AIR = new System.Windows.Forms.Label();
+            this.ait_box = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.label21 = new System.Windows.Forms.Label();
+            this.test__count_bar = new System.Windows.Forms.ProgressBar();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
@@ -99,11 +104,6 @@ namespace WindowsFormsApp1.Views
             this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.button2 = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.T_AIR = new System.Windows.Forms.Label();
-            this.ait_box = new System.Windows.Forms.TextBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.test__count_bar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.revs_grid)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             this.tableLayoutPanel11.SuspendLayout();
@@ -685,7 +685,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 153F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 172F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(791, 172);
             this.tableLayoutPanel3.TabIndex = 26;
             // 
@@ -718,6 +718,41 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel4.Size = new System.Drawing.Size(191, 147);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
+            // T_AIR
+            // 
+            this.T_AIR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.T_AIR.AutoSize = true;
+            this.T_AIR.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.T_AIR.Location = new System.Drawing.Point(11, 114);
+            this.T_AIR.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.T_AIR.Name = "T_AIR";
+            this.T_AIR.Size = new System.Drawing.Size(45, 33);
+            this.T_AIR.TabIndex = 20;
+            this.T_AIR.Text = "T. AIR";
+            // 
+            // ait_box
+            // 
+            this.ait_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.ait_box.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ait_box.Location = new System.Drawing.Point(92, 111);
+            this.ait_box.Name = "ait_box";
+            this.ait_box.Size = new System.Drawing.Size(48, 22);
+            this.ait_box.TabIndex = 22;
+            // 
+            // label22
+            // 
+            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label22.AutoSize = true;
+            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label22.Location = new System.Drawing.Point(146, 114);
+            this.label22.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(21, 33);
+            this.label22.TabIndex = 21;
+            this.label22.Text = "°C";
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -741,6 +776,27 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.29932F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(227, 152);
             this.tableLayoutPanel5.TabIndex = 1;
+            // 
+            // label21
+            // 
+            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(39, 79);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(60, 73);
+            this.label21.TabIndex = 22;
+            this.label21.Text = "test_count:";
+            this.label21.Visible = false;
+            // 
+            // test__count_bar
+            // 
+            this.test__count_bar.Location = new System.Drawing.Point(105, 82);
+            this.test__count_bar.Maximum = 200;
+            this.test__count_bar.Name = "test__count_bar";
+            this.test__count_bar.Size = new System.Drawing.Size(64, 23);
+            this.test__count_bar.TabIndex = 23;
+            this.test__count_bar.Visible = false;
             // 
             // tableLayoutPanel6
             // 
@@ -968,60 +1024,6 @@ namespace WindowsFormsApp1.Views
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // T_AIR
-            // 
-            this.T_AIR.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.T_AIR.AutoSize = true;
-            this.T_AIR.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.T_AIR.Location = new System.Drawing.Point(11, 114);
-            this.T_AIR.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.T_AIR.Name = "T_AIR";
-            this.T_AIR.Size = new System.Drawing.Size(45, 33);
-            this.T_AIR.TabIndex = 20;
-            this.T_AIR.Text = "T. AIR";
-            // 
-            // ait_box
-            // 
-            this.ait_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.ait_box.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.ait_box.Location = new System.Drawing.Point(92, 111);
-            this.ait_box.Name = "ait_box";
-            this.ait_box.Size = new System.Drawing.Size(48, 22);
-            this.ait_box.TabIndex = 22;
-            // 
-            // label22
-            // 
-            this.label22.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label22.AutoSize = true;
-            this.label22.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label22.Location = new System.Drawing.Point(146, 114);
-            this.label22.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(21, 33);
-            this.label22.TabIndex = 21;
-            this.label22.Text = "°C";
-            // 
-            // label21
-            // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(39, 79);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(60, 73);
-            this.label21.TabIndex = 22;
-            this.label21.Text = "test_count:";
-            // 
-            // test__count_bar
-            // 
-            this.test__count_bar.Location = new System.Drawing.Point(105, 82);
-            this.test__count_bar.Maximum = 200;
-            this.test__count_bar.Name = "test__count_bar";
-            this.test__count_bar.Size = new System.Drawing.Size(64, 23);
-            this.test__count_bar.TabIndex = 23;
             // 
             // Configuration
             // 

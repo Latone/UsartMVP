@@ -12,12 +12,16 @@ using WindowsFormsApp1.Model;
 
 namespace WindowsFormsApp1.Views
 {
+    /// <summary>
+    /// Окно калибровки
+    /// </summary>
     public partial class AutoCalibration : Form
     {
         private List<RadioButton> rb_container;
         //private Config Global.config;
         private Form _form;
 
+        //Подписанный метод
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Config Update" && IsHandleCreated)
@@ -27,6 +31,8 @@ namespace WindowsFormsApp1.Views
                 this.Invoke(new Action(() => UpdateBoxes()));
             }
         }
+
+        //Локальный GET;SET;
         public Config config
         {
             get
@@ -52,6 +58,9 @@ namespace WindowsFormsApp1.Views
                 Global.config = value;
             }
         }
+
+        //Конструктор
+        //Загрузка данных из общего конфига
         public AutoCalibration(Form1 form)
         {
             InitializeComponent();
@@ -93,6 +102,8 @@ namespace WindowsFormsApp1.Views
             RadioButton button = this.Controls.Find(rbName, true).FirstOrDefault() as RadioButton;
             button.Checked = true;
         }
+
+        //Процесс калибровки при нажатии
             private void calibr_Click(object sender, EventArgs e)
         {
             if (timer1.Enabled)
@@ -108,6 +119,7 @@ namespace WindowsFormsApp1.Views
             }
         }
 
+        //Ивент обработки таймера формы
         private void timer1_Tick(object sender, EventArgs e)
         {
             if (calibration_bar.Value < 100)
@@ -127,12 +139,12 @@ namespace WindowsFormsApp1.Views
                 calibr.Text = "Start calibration";
             }
         }
-
+        //Ивент при загрузке (подписка на изменение/вызов)
         private void AutoCalibration_Load(object sender, EventArgs e)
         {
             Global.StaticPropertyChanged += OnReceiveData;
         }
-
+        //Ивент при закрытии (отписка от изменения/вызова)
         private void AutoCalibration_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.StaticPropertyChanged -= OnReceiveData;

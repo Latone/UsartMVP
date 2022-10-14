@@ -35,6 +35,9 @@ namespace WindowsFormsApp1.Views
             this.GAS_bar = new System.Windows.Forms.ProgressBar();
             this.label31 = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.label32 = new System.Windows.Forms.Label();
+            this.air_box = new System.Windows.Forms.TextBox();
+            this.label33 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.revs_box = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
@@ -87,9 +90,6 @@ namespace WindowsFormsApp1.Views
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.label32 = new System.Windows.Forms.Label();
-            this.air_box = new System.Windows.Forms.TextBox();
-            this.label33 = new System.Windows.Forms.Label();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel14.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
@@ -117,7 +117,7 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 152F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 177F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(800, 177);
             this.tableLayoutPanel3.TabIndex = 27;
             // 
@@ -188,6 +188,42 @@ namespace WindowsFormsApp1.Views
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(191, 146);
             this.tableLayoutPanel4.TabIndex = 0;
+            // 
+            // label32
+            // 
+            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label32.AutoSize = true;
+            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label32.Location = new System.Drawing.Point(3, 114);
+            this.label32.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(45, 32);
+            this.label32.TabIndex = 20;
+            this.label32.Text = "T. AIR";
+            // 
+            // air_box
+            // 
+            this.air_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.air_box.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.air_box.Location = new System.Drawing.Point(92, 111);
+            this.air_box.Name = "air_box";
+            this.air_box.Size = new System.Drawing.Size(48, 22);
+            this.air_box.TabIndex = 22;
+            // 
+            // label33
+            // 
+            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label33.Location = new System.Drawing.Point(146, 114);
+            this.label33.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(21, 32);
+            this.label33.TabIndex = 21;
+            this.label33.Text = "°C";
             // 
             // label1
             // 
@@ -835,42 +871,6 @@ namespace WindowsFormsApp1.Views
             // 
             this.timer1.Interval = 30;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // label32
-            // 
-            this.label32.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label32.AutoSize = true;
-            this.label32.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label32.Location = new System.Drawing.Point(3, 114);
-            this.label32.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(45, 32);
-            this.label32.TabIndex = 20;
-            this.label32.Text = "T. AIR";
-            // 
-            // air_box
-            // 
-            this.air_box.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.air_box.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.air_box.Location = new System.Drawing.Point(92, 111);
-            this.air_box.Name = "air_box";
-            this.air_box.Size = new System.Drawing.Size(48, 22);
-            this.air_box.TabIndex = 22;
-            // 
-            // label33
-            // 
-            this.label33.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label33.Location = new System.Drawing.Point(146, 114);
-            this.label33.Margin = new System.Windows.Forms.Padding(3, 6, 3, 0);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(21, 32);
-            this.label33.TabIndex = 21;
-            this.label33.Text = "°C";
             // 
             // AutoCalibration
             // 

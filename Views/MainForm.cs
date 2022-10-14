@@ -8,17 +8,19 @@ using WindowsFormsApp1.COM;
 using System.IO.Ports;
 using System.Globalization;
 using View = WindowsFormsApp1.Views.View;
-using System.Reflection;
 using System.ComponentModel;
-using System.Threading;
 
 namespace WindowsFormsApp1
 {
-
+    /// <summary>
+    /// Главная форма
+    /// </summary>
     public partial class Form1 : Form
     {
         //Main port for COM
         private SerialPort MyserialPort_;
+
+        //Инициализация компонентов
         public Form1()
         {
             InitializeComponent();
@@ -28,8 +30,12 @@ namespace WindowsFormsApp1
             t.Wait();
             Global.config = t.Result;
         }
+        
+        //Обновлеине данных при отключении порта
         void UpdateDisconnectedView() {
-            MyserialPort_.DataReceived -= new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
+            this.Invoke(new Action(() => {
+                //Отписка от ивента
+                MyserialPort_.DataReceived -= new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
 
             Connect_button.Text = "Подключиться";
             port_box.Enabled = true;
@@ -55,10 +61,14 @@ namespace WindowsFormsApp1
             Global.updateConfig();
 
             MessageBox.Show("COM-порт отключён");
+            }));
         }
+
+        //Метод на обработку данных по вызову. См Model.Global.cs
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Config Update")
+            //Обновление данных в GUI (дебаг)
+            if (e.PropertyName == "Config Update" && IsHandleCreated)
             {
                 //Операция из другого потока (не Main) -> используем Invoke
                 this.Invoke(new Action(() => { 
@@ -66,7 +76,9 @@ namespace WindowsFormsApp1
                     Config_status_2.Text = Global.config.getBasicInfo2();
                 }));
             }
-            if (e.PropertyName == "COM Disconnected")
+
+            //Обработка отключения
+            if (e.PropertyName == "COM Disconnected" && IsHandleCreated)
             {
                 //Обычное отключение по кнопке
                 if (conn_status.Text == "Отключено" && !Global.config.connection_error)
@@ -92,23 +104,23 @@ namespace WindowsFormsApp1
                 }
                 catch (Exception ex)
                 {
-                    //throw new Exception(ex.Message);
-                    MessageBox.Show("Ошибка переподключения\n" + ex.Message);
-                    Global.config.connection_error = false;
-
-                    this.BeginInvoke(new Action(() => {
-                        UpdateDisconnectedView();
-                    }));
+                        this.BeginInvoke(new Action(() => {
+                            //throw new Exception(ex.Message);
+                            MessageBox.Show("Ошибка переподключения\n" + ex.Message);
+                            Global.config.connection_error = false;
+                            UpdateDisconnectedView();
+                        }));
                 }
             }
         }
+
+        //Подключение по клику кнопки
                 private void Connect_button_Click(object sender, EventArgs e)
         {
             if (Connect_button.Text == "Подключиться")
             {
                 try
                 {   //выбор порта
-                    //if(!MyserialPort_.IsOpen)
                     MyserialPort_.PortName = port_box.Text;
                     //Хэндл ивента на получение данных
                     MyserialPort_.DataReceived += new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
@@ -121,7 +133,7 @@ namespace WindowsFormsApp1
                     //элемент не действителен
                     port_box.Enabled = false;
                     update_ports.Enabled = false;
-                    //((Lambda_meter)this.Tag).comboBoxPorts.Text = comboBoxPorts_.Text;
+
                     Connect_button.Text = "Отключиться";
                     conn_status.Text = "Подключено к порту " + port_box.Text;
                 }
@@ -134,9 +146,6 @@ namespace WindowsFormsApp1
             else if (Connect_button.Text == "Отключиться")
             {
                 
-                //Thread.Sleep(150);
-                //MyserialPort_.DataReceived -= new SerialDataReceivedEventHandler(ReceiveData.DataReceivedHandler);
-
                 conn_status.Text = "Отключено";
                 try
                 {
@@ -159,19 +168,18 @@ namespace WindowsFormsApp1
 
         }
 
+        //Переход в окно конфига
         private void button_config_Click(object sender, EventArgs e)
         {
             using (Configuration window = new Configuration(this)) {
-                //this.Enabled = false;
-                //window.Show();
 
                 if (window.ShowDialog() == DialogResult.OK) { }
-                   // this.config = window.config;
 
             }
                 
         }
 
+        //Ивент на обработку при загрузке формы
         private void Form1_Load(object sender, EventArgs e)
         {
             //default COM to use
@@ -181,13 +189,14 @@ namespace WindowsFormsApp1
             updports();
         }
 
+        //Ивент при активации формы
         private void Form1_Activated(object sender, EventArgs e)
         {
             Config_status_1.Text = Global.config.getBasicInfo1();
             Config_status_2.Text = Global.config.getBasicInfo2();
         }
 
-
+        //Переход в окно калибровки
         private void button_calibration_Click(object sender, EventArgs e)
         {
             if (Math.Round(Double.Parse(Global.config.REVS, CultureInfo.InvariantCulture)) > 6500)
@@ -200,28 +209,22 @@ namespace WindowsFormsApp1
             }
             using (AutoCalibration window = new AutoCalibration(this))
             {
-                //this.Enabled = false;
-                //window.Show();
-
                 if (window.ShowDialog() == DialogResult.OK) { }
-                //    this.config = window.config;
 
             }
         }
 
+        //Переход в окно просмотра
         private void view_Click(object sender, EventArgs e)
         {
             using (View window = new View(this))
             {
-                //this.Enabled = false;
-                //window.Show();
-
                 if (window.ShowDialog() == DialogResult.OK) { }
-                    //this.config = window.config;
 
             }
         }
 
+        //Кнопка обновления списка портов
         private void update_ports_Click(object sender, EventArgs e)
         {
             updports();
@@ -237,17 +240,21 @@ namespace WindowsFormsApp1
             }
         }
 
+        //Переход в окно графика
         private void button8_Click(object sender, EventArgs e)
         {
             using (Plot3D.Graph3DMainForm window = new Plot3D.Graph3DMainForm())
             {
-                //this.Enabled = false;
-                //window.Show();
-
                 if (window.ShowDialog() == DialogResult.OK) { }
-                //this.config = window.config;
 
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!IsHandleCreated)
+                e.Cancel = true;
+
         }
     }
 }

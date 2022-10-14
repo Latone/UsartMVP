@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.COM
 {
+    /// <summary>
+    /// Класс, отвечающий за переподключение при внезапном разрыве соединения
+    /// По дефолту: 3 попытки с интервалом в 1 сек
+    /// </summary>
     public static class Retry
     {
         public static void Do(

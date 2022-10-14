@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1.Model
 {
+    /// <summary>
+    /// Общая структуа конфига значений
+    /// </summary>
     public enum radio_button
     {
         EXTRA_INJ = 0,
@@ -18,7 +21,6 @@ namespace WindowsFormsApp1.Model
         public string REVS { get; set; } = "";
         public string T_GAS { get; set; } = "";
         public string T_RED { get; set; } = "";
-
         public string T_AIR { get; set; } = "0";
         public string GAS_TIME { get; set; } = "";
         public string PETROL_TIME { get; set; } = "";
@@ -41,6 +43,8 @@ namespace WindowsFormsApp1.Model
         public string test_pressure { get; set; } = "0";
 
         public int track_bar { get; set; } = 0;
+
+        //Сообщения на вывод/(для дебага)
         public string toString() {
             return "Revs: " + REVS + "\n" +
                 "t_gas: " + T_GAS + "\n" +
@@ -53,14 +57,18 @@ namespace WindowsFormsApp1.Model
                 "inj_sens: " + inj_sens + "\n" +
                 "l_on_mazda: " + l_on_mazda;
         }
+
+        //Сообщения на вывод/(для дебага)
         public string getBasicInfo1()
         {
-            return "Pressure: " + test_pressure + "\n\n"+
-                "time_span1: " + time_1 + "\n" +
-                "time_span2: " + time_2 + "\n" +
-                "time_span3: " + time_3 + "\n" +
-                "time_span4: " + time_4;
+            return "REVS: " + REVS + "\n\n"+
+                "T_petrol_1: " + time_1 + "\n" +
+                "T_petrol_2: " + time_2 + "\n" +
+                "T_petrol_3: " + time_3 + "\n" +
+                "T_petrol_4: " + time_4;
         }
+
+        //Сообщения на вывод/(для дебага)
         public string getBasicInfo2()
         {
             return "T_RED " + T_RED + "\n" +

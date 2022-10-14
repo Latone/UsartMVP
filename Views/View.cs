@@ -12,11 +12,15 @@ using WindowsFormsApp1.Model;
 
 namespace WindowsFormsApp1.Views
 {
+    /// <summary>
+    /// Форма просмотра
+    /// </summary>
     public partial class View : Form
     {
         private List<RadioButton> rb_container;
-        //private Config Global.config;
         private Form _form;
+
+        //Подписанный метод
         void OnReceiveData(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "Config Update" && IsHandleCreated)
@@ -25,31 +29,11 @@ namespace WindowsFormsApp1.Views
                 this.Invoke(new Action(() => UpdateBoxes()));
             }
         }
+        //Локальный GET;SET;
         public Config config
         {
             get
             {
-                /*Global.config.REVS = revs_box.Text;
-                Global.config.T_GAS = t_gas_box.Text;
-                Global.config.T_RED = t_red_box.Text;
-                Global.config.GAS_TIME = gas_time_box.Text;
-                Global.config.PETROL_TIME = petrol_time_box.Text;
-                Global.config.G_PRES = g_press_box.Text;
-                Global.config.MAP = map_box.Text;
-
-                Global.config.TABLE_REVS = revs_grid.CurrentCell.Value.ToString();
-                Global.config.TABLE_REVS_Column = revs_grid.CurrentCell.ColumnIndex.ToString();
-                Global.config.TABLE_REVS_Row = revs_grid.CurrentCell.RowIndex.ToString();
-
-
-                var checkedRadioButton = rb_container.OfType<RadioButton>()
-                                          .FirstOrDefault(r => r.Checked);
-
-                int h = checkedRadioButton.Name[checkedRadioButton.Name.Length - 1] - '0';
-                Global.config.rb = (radio_button)h;
-                Global.config.l_on_mazda = l_on_m_box.Text;
-                Global.config.inj_sens = extra_inj_box.Checked;
-*/
                 return Global.config;
             }
             set
@@ -58,6 +42,7 @@ namespace WindowsFormsApp1.Views
                 
             }
         }
+        //Обработка загружаемых данных на вывод в GUI
         void UpdateBoxes() {
             //textBoxes
             t_red_tb.Text = Global.config.T_RED;
@@ -85,10 +70,9 @@ namespace WindowsFormsApp1.Views
 
             RadioButton button = this.Controls.Find(rbName, true).FirstOrDefault() as RadioButton;
             button.Checked = true;
-            //button.PerformClick();
-            //l_on_m_box.Text = Global.config.l_on_mazda;
-            //extra_inj_box.Checked = Global.config.inj_sens;
         }
+        //Конструктор
+        //Загрузка данных из общего конфига
         public View(Form1 form)
         {
             InitializeComponent();
@@ -104,11 +88,13 @@ namespace WindowsFormsApp1.Views
             UpdateBoxes();
         }
 
+        //Ивент при загрузке (подписка на изменение/вызов)
         private void View_Load(object sender, EventArgs e)
         {
             Global.StaticPropertyChanged += OnReceiveData;
         }
 
+        //Ивент при закрытии (отписка от изменения/вызова)
         private void View_FormClosing(object sender, FormClosingEventArgs e)
         {
             Global.StaticPropertyChanged -= OnReceiveData;

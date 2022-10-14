@@ -99,6 +99,10 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="COM\Models\DEFAULT.cs" />
+    <Compile Include="COM\Models\IModel.cs" />
+    <Compile Include="COM\Models\XN.cs" />
+    <Compile Include="COM\ProcessData.cs" />
     <Compile Include="COM\ReceiveData.cs" />
     <Compile Include="Graph3D\ColorSchema.cs" />
     <Compile Include="Graph3D\FunctionCompiler.cs" />
